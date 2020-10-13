@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+<title>The JS Ball</title>
+<style>
+#myContainer {
+  width: 1330px;
+  height: 580px;
+  position: relative;
+  background: yellow;
+}
+#redBall {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: red;
+}
+</style>
+<body>
+
+
+<div id ="myContainer">
+<div id ="redBall"></div>
+</div>
+
+<script>
+var x_update_rate = 1
+var y_update_rate = 1
+var xpos = 0;
+var ypos = 0;  
+x_rate_paused = 1
+y_rate_paused = 1
+function resetBall(){
+    xpos = 650
+    ypos = 250
+}
+
+function repositionBall() {
+    // var ball = document.getElementById("redBall");   
+    // ball.style.top = Math.floor(Math.random() * 500) + 'px';
+    // ball.style.left = Math.floor(Math.random() * 1300)+ 'px';
+    
+    xpos = Math.floor(Math.random() * 1250) % 1200 ;
+    ypos = Math.floor(Math.random() * 500) % 480 ;
+    
+
+    // var id = setInterval(frame, 10);
+    // function frame() {
+    //   }
+  
+}
+
+function pauseBall(){
+    x_rate_paused = x_update_rate
+    y_rate_paused = y_update_rate
+    x_update_rate = 0
+    y_update_rate = 0
+}
+function reflect(curr_x,curr_y) {
+      if(curr_x > 1280)
+        x_update_rate = x_update_rate*(-1)
+      if(curr_x < 0)
+        x_update_rate = x_update_rate*(-1)
+      if(curr_y > 530)
+          y_update_rate = y_update_rate*(-1)
+      if(curr_y  < 0)
+        y_update_rate = y_update_rate*(-1)   
+    }
+
+
+function speedIncBall() {
+    x_update_rate = x_rate_paused
+    y_update_rate = y_rate_paused
+    var ball = document.getElementById("redBall");   
+    var id = setInterval(frame, 10);
+    
+    function frame() {
+    reflect(xpos,ypos)
+    xpos = (xpos + x_update_rate) //%1280 
+    ypos = (ypos + y_update_rate) //%530 
+
+    ball.style.top = ypos + 'px'; 
+    ball.style.left = xpos + 'px'; 
+    }
+}
+</script>
+    <centre>
+    <p> 
+        <button onclick="speedIncBall()">Increase Speed</button> 
+        <button onclick="pauseBall()">Pause Ball</button> 
+        <button onclick="repositionBall()">Reposition Random</button> 
+        <button onclick="resetBall()">Reset Ball to Centre</button> 
+            
+    </p>
+    </centre>
+</body>
+</html>

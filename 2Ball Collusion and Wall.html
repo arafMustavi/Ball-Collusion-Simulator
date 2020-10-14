@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+
+<title>The JS Ball</title>
+<style>
+#myContainer {
+  width: 1330px;
+  height: 490px;
+  position: relative;
+  background: yellow;
+}
+#redBall {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: red;
+}
+#blueBall {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  left:100px;
+  top:150px;
+  background-color: blue;
+}
+</style>
+<body>
+
+<h1 style="text-align:center">JS BALL</h1>
+
+<p id="collusion" style="text-align:center">Collusion Count : 0</p>
+<!-- <centre> -->
+<p style="text-align:center"> 
+    <button onclick="initBall()">Initialise</button> 
+    <button onclick="speedIncBall()">Increase Speed</button> 
+    <button onclick="pauseBall()">Pause Ball</button> 
+    <button onclick="randompositionBall()">Reposition at Random</button> 
+    <button onclick="resetBall()">Reset Ball to Centre</button> 
+        
+</p>
+<!-- </centre> -->
+
+<div id ="myContainer">
+  <div id ="redBall">  </div>
+  <div id ="blueBall">  </div>
+</div>
+
+<script>
+nCollusion = 0
+x_blue_update_rate = 1
+y_blue_update_rate = 1
+x_red_update_rate = 1
+y_red_update_rate = 1
+
+x_red_pos = 0;
+y_red_pos = 0;  
+x_blue_pos = 100;
+y_blue_pos = 150;  
+
+x_blue_rate_paused = 1
+y_blue_rate_paused = 1
+x_red_rate_paused = 1
+y_red_rate_paused = 1
+
+staticBall = true
+simulation_status = false
+
+function initBall(){
+    // simulation_status = True
+    x_red_pos = Math.floor(Math.random() * 1250) % 1200 ;
+    y_red_pos = Math.floor(Math.random() * 500) % 440 ;
+    x_blue_pos = Math.floor(Math.random() * 1250) % 1200 ;
+    y_blue_pos = Math.floor(Math.random() * 500) % 440 ;
+
+    var redball = document.getElementById("redBall");
+    var blueball = document.getElementById("blueBall");     
+}
+
+function collusionNreflect(){
+  if(Math.abs(x_red_pos - x_blue_pos) < 50){
+    if(Math.abs(y_red_pos - y_blue_pos) < 50){
+      x_blue_update_rate*=(-1)
+      x_red_update_rate*=(-1)
+    }
+  }
+  if(Math.abs(y_red_pos - y_blue_pos) < 50){
+    if(Math.abs(x_red_pos - x_blue_pos) < 50){
+    y_blue_update_rate*=(-1)
+    y_red_update_rate*=(-1)
+    }
+  }
+}
+
+function resetBall(){
+    x_red_pos = 650
+    y_red_pos = 250
+    x_red_update_rate = 0
+    y_red_update_rate = 0
+    x_blue_pos = 400
+    y_blue_pos = 350
+    x_blue_update_rate = 0
+    y_blue_update_rate = 0
+    staticBall = true
+    nCollusion = 0
+    document.getElementById("collusion").innerHTML = "Collusion :" + nCollusion;
+    }
+
+function randompositionBall() {
+    
+    x_red_pos = Math.floor(Math.random() * 1250) % 1200 ;
+    y_red_pos = Math.floor(Math.random() * 500) % 440 ;
+    x_blue_pos = Math.floor(Math.random() * 1250) % 1200 ;
+    y_blue_pos = Math.floor(Math.random() * 500) % 440 ;
+      
+}
+
+function pauseBall(){
+    x_red_rate_paused = x_red_update_rate
+    y_red_rate_paused = y_red_update_rate
+    x_blue_rate_paused = x_blue_update_rate
+    y_blue_rate_paused = y_blue_update_rate
+    x_red_update_rate = 0
+    y_red_update_rate = 0
+    x_blue_update_rate = 0
+    y_blue_update_rate = 0
+}
+function red_wallreflect(curr_x,curr_y) {
+      if(curr_x > 1280)
+        {x_red_update_rate = x_red_update_rate*(-1);
+        nCollusion++;
+        document.getElementById("collusion").innerHTML = "Collusion Count :" + nCollusion;}
+      if(curr_x < 0)
+        {x_red_update_rate = x_red_update_rate*(-1);
+        nCollusion++;
+        document.getElementById("collusion").innerHTML = "Collusion Count :" + nCollusion;}
+      if(curr_y > 440)
+        {y_red_update_rate = y_red_update_rate*(-1);
+        nCollusion++;
+        document.getElementById("collusion").innerHTML = "Collusion Count :" + nCollusion;}
+      if(curr_y  < 0)
+        {y_red_update_rate = y_red_update_rate*(-1);   
+        nCollusion++;
+        document.getElementById("collusion").innerHTML = "Collusion Count :" + nCollusion;}
+    }
+function blue_wallreflect(curr_x,curr_y) {
+      if(curr_x > 1280)
+        {x_blue_update_rate = x_blue_update_rate*(-1);
+        nCollusion++;
+        document.getElementById("collusion").innerHTML = "Collusion Count :" + nCollusion;}
+      if(curr_x < 0)
+        {x_blue_update_rate = x_blue_update_rate*(-1);
+        nCollusion++;
+        document.getElementById("collusion").innerHTML = "Collusion Count :" + nCollusion;}
+      if(curr_y > 440)
+        {y_blue_update_rate = y_blue_update_rate*(-1);
+        nCollusion++;
+        document.getElementById("collusion").innerHTML = "Collusion Count :" + nCollusion;}
+      if(curr_y  < 0)
+        {y_blue_update_rate = y_blue_update_rate*(-1);   
+        nCollusion++;
+        document.getElementById("collusion").innerHTML = "Collusion Count :" + nCollusion;}
+    }
+
+function speedIncBall() {
+    if(staticBall)
+    {   x_blue_update_rate = x_blue_rate_paused
+        y_blue_update_rate = y_blue_rate_paused
+        x_red_update_rate = x_red_rate_paused
+        y_red_update_rate = y_red_rate_paused
+    }
+
+    var redball = document.getElementById("redBall");
+    var blueball = document.getElementById("blueBall");   
+    var id = setInterval(frame, 10);
+    
+    function frame() {
+    red_wallreflect(x_red_pos,y_red_pos)
+    blue_wallreflect(x_blue_pos,y_blue_pos)
+    collusionNreflect()
+    x_red_pos = (x_red_pos + x_red_update_rate) //%1280 
+    y_red_pos = (y_red_pos + y_red_update_rate) //%530 
+
+    x_blue_pos = (x_blue_pos + x_blue_update_rate) //%1280 
+    y_blue_pos = (y_blue_pos + y_blue_update_rate) //%530 
+
+    redball.style.top = y_red_pos + 'px'; 
+    redball.style.left = x_red_pos + 'px'; 
+    blueball.style.top = y_blue_pos + 'px';  
+    blueball.style.left = x_blue_pos + 'px';  
+    
+    }
+}
+</script>
+</body>
+</html>

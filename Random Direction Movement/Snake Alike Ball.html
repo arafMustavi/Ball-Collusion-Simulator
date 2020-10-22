@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<title>The JS Ball</title>
+<style>
+#myContainer {
+  width: 1330px;
+  height: 580px;
+  position: relative;
+  background: yellow;
+}
+#redBall {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  position: absolute;
+  background-color: red;
+}
+</style>
+<body>
+
+
+<div id ="myContainer">
+<div id ="redBall"></div>
+</div>
+
+<script>
+var x_update_rate = 0
+var y_update_rate = 0
+var xpos = 100;
+var ypos = 500;  
+var theta = 0
+
+function resetBall(){
+    xpos = 250
+    ypos = 650
+}
+
+function repositionBall() {
+    // var ball = document.getElementById("redBall");   
+    // ball.style.top = Math.floor(Math.random() * 500) + 'px';
+    // ball.style.left = Math.floor(Math.random() * 1300)+ 'px';
+    
+    xpos = Math.floor(Math.random() * 500) ;
+    ypos = Math.floor(Math.random() * 1250);
+    
+
+    // var id = setInterval(frame, 10);
+    // function frame() {
+    //   }
+  
+}
+
+function pauseBall(){
+    x_update_rate = 0
+    y_update_rate = 0
+}
+
+// function randomRange(myMin, myMax) {
+//   return Math.floor(Math.random() * (myMax - myMin + 1) + myMin);
+// }
+
+function direction(){
+  // r = 1
+  theta = Math.floor(Math.random()*(180 + 1))
+  console.log(theta)
+  // = Math.sin(90 * Math.PI / 180)
+}
+function startBall() {
+  direction()
+  x_update_rate = Math.cos(theta * Math.PI / 180)
+  y_update_rate = Math.sin(theta * Math.PI / 180)
+    
+  var ball = document.getElementById("redBall");   
+  var id = setInterval(frame, 10);  
+  function frame() {
+      xpos = (xpos + x_update_rate) %1280 
+      ypos = (ypos + y_update_rate) %530 
+
+      ball.style.left = xpos + 'px'; 
+      ball.style.top = ypos + 'px'; 
+  }
+
+}
+
+function speedIncBall() {
+    x_update_rate = 1
+    y_update_rate = 1
+    var ball = document.getElementById("redBall");   
+    var id = setInterval(frame, 10);
+    //   pos = 0
+    function frame() {
+    // if (pos == 350) {
+    //   clearInterval(id);
+    // } else {
+      xpos = (xpos + x_update_rate) %530 
+      ypos = (ypos + y_update_rate) %1280 
+
+      ball.style.top = xpos + 'px'; 
+      ball.style.left = ypos + 'px'; 
+    // }
+  }
+}
+</script>
+    <centre>
+    <p> 
+        <button onclick="startBall()">Start Ball</button>
+        <!-- <button onclick="speedIncBall()">Increase Speed</button>  -->
+        <button onclick="pauseBall()">Pause Ball</button> 
+        <!-- <button onclick="repositionBall()">Reposition Random</button>  -->
+        <!-- <button onclick="resetBall()">Reset Ball to Centre</button>  -->
+            
+    </p>
+    </centre>
+</body>
+</html>

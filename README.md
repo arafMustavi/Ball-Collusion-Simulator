@@ -9,3 +9,7 @@
 13/10/2020 11:27PM - Reflection of a single Ball along the Edges is completed | Have to work on Increase of Speed
 
 15/10/2020 01:37PM - Reflection and Collusion complete
+## Collusion Count 
+
+15/10/2020 11:25AM - 2 Ball completed | Collusion Count done for redBall and blueBall
+

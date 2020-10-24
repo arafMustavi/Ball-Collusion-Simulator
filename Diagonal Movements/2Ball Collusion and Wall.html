@@ -78,20 +78,33 @@ function initBall(){
     var blueball = document.getElementById("blueBall");     
 }
 
-function collusionNreflect(){
-  if(Math.abs(x_red_pos - x_blue_pos) < 50){
-    if(Math.abs(y_red_pos - y_blue_pos) < 50){
+function collusionNreflect()
+{
+  if(Math.abs(x_red_pos - x_blue_pos) < 50)
+  {
+    if(Math.abs(y_red_pos - y_blue_pos) < 50)
+    {
       x_blue_update_rate*=(-1)
       x_red_update_rate*=(-1)
+      nCollusion++;
+      document.getElementById("collusion").innerHTML = "Collusion Count :" + nCollusion;
     }
+
   }
-  if(Math.abs(y_red_pos - y_blue_pos) < 50){
-    if(Math.abs(x_red_pos - x_blue_pos) < 50){
+  
+  else if(Math.abs(y_red_pos - y_blue_pos) < 50)
+  {
+    if(Math.abs(x_red_pos - x_blue_pos) < 50)
+    {
     y_blue_update_rate*=(-1)
     y_red_update_rate*=(-1)
+    nCollusion++;
+    document.getElementById("collusion").innerHTML = "Collusion Count :" + nCollusion;
     }
+
   }
 }
+
 
 function resetBall(){
     x_red_pos = 650

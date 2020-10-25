@@ -21,7 +21,6 @@ let lastTime = (new Date()).getTime();
 let currentTime = 0;
 let dt = 0;
 
-// let numStartingSmallBalls = 235;
 let numStartingBigBalls = 2;
 
 document.addEventListener("keydown", keyDownHandler);
@@ -36,13 +35,7 @@ function keyDownHandler(event) {
         objArray[objArray.length] = new Ball(randomX(), randomY(), randomRadius());
     } else if (event.keyCode == 80) { // p
         paused = !paused;
-    } else if (event.keyCode == 71) { // g
-        // This feature WAS taken out
-        // because of a bug where
-        // balls "merge" with each other
-        // when under a lot of pressure.      
-        
-        // putting back in
+    } else if (event.keyCode == 71) { // G
         
         gravityOn = !gravityOn;
     } else if (event.keyCode == 65) { // A
@@ -53,11 +46,11 @@ function keyDownHandler(event) {
         rightHeld = true;
     } else if (event.keyCode == 83) { // S
         downHeld = true;
-    } else if (event.keyCode == 82) { // r
+    } else if (event.keyCode == 82) { // R
         objArray = [];
-    } else if (event.keyCode == 75) { // k
+    } else if (event.keyCode == 75) { // K
         clearCanv = !clearCanv;
-    } else if (event.keyCode == 88) { // x
+    } else if (event.keyCode == 88) { // X
         bigBalls = !bigBalls;
     }
 }

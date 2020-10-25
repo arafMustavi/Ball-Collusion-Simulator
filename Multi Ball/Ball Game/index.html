@@ -53,13 +53,25 @@
   </div>
   <section class="footer">
 
-    <p>      
+    <!-- <p>      
       <strong>[G]</strong> to toggle gravity <br>
       <strong>[C]</strong> to spawn more balls<br>
       <strong>[P]</strong>: pause/unpause <br>
       <strong>[R]</strong>: [RESET]
-    </p>
-
+    </p> -->
+    <p style="text-align:center"> 
+      <button onclick="createBall()">Spawn Ball</button> 
+      <button onclick="pauseSimulation()" id="pauseBtn">Pause Simulation</button> 
+      <button onclick="toggleGravity()" id="gravityBtn">Enable Gravity</button> 
+      <button onclick="resetSimulation()">Reset</button> 
+      
+      <!-- <button onclick="speedIncBall()">Increase Speed</button>  -->
+      
+      <!-- <button onclick="randompositionBall()">Reposition at Random</button> 
+      <button onclick="resetBall()">Reset Ball to Centre</button> 
+           -->
+  </p>
+  
 
   </section>
 </body>

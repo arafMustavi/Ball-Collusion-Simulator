@@ -30,6 +30,33 @@ function clearCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
+function createBall(){
+    objArray[objArray.length] = new Ball(randomX(), randomY(), randomRadius()); 
+}
+
+function pauseSimulation(){
+    paused = !paused;
+    
+    if(paused){
+        document.getElementById("pauseBtn").innerHTML = "Start Simulation"; }
+    else{
+        document.getElementById("pauseBtn").innerHTML = "Pause Simulation"; }
+}
+
+function toggleGravity(){
+    gravityOn = !gravityOn;
+    if(gravityOn){
+        document.getElementById("gravityBtn").innerHTML = "Disable Gravity"; }
+    else{
+        document.getElementById("gravityBtn").innerHTML = "Enable Gravity"; }
+
+    
+}
+
+function resetSimulation(){
+    objArray = [];
+}
+
 function keyDownHandler(event) {
     if (event.keyCode == 67) { // c
         objArray[objArray.length] = new Ball(randomX(), randomY(), randomRadius());
@@ -38,7 +65,8 @@ function keyDownHandler(event) {
     } else if (event.keyCode == 71) { // G
         
         gravityOn = !gravityOn;
-    } else if (event.keyCode == 65) { // A
+    } 
+    else if (event.keyCode == 65) { // A
         leftHeld = true;
     } else if (event.keyCode == 87) { // W
         upHeld = true;
@@ -46,7 +74,8 @@ function keyDownHandler(event) {
         rightHeld = true;
     } else if (event.keyCode == 83) { // S
         downHeld = true;
-    } else if (event.keyCode == 82) { // R
+    } 
+    else if (event.keyCode == 82) { // R
         objArray = [];
     } else if (event.keyCode == 75) { // K
         clearCanv = !clearCanv;
@@ -140,7 +169,7 @@ function ballCollision() {
                 ob2.dx = dx2F;                
                 ob2.dy = dy2F;
           
-                staticCollision(ob1, ob2)
+                // staticCollision(ob1, ob2)
                 
             }            
         }
@@ -151,30 +180,30 @@ function ballCollision() {
         wallCollision(objArray[objArray.length-1])
 }
 
-function staticCollision(ob1, ob2, emergency=false)
-{
-    let overlap = ob1.radius + ob2.radius - distance(ob1, ob2);
-    let smallerObject = ob1.radius < ob2.radius ? ob1 : ob2;
-    let biggerObject = ob1.radius > ob2.radius ? ob1 : ob2;
+// function staticCollision(ob1, ob2, emergency=false)
+// {
+//     let overlap = ob1.radius + ob2.radius - distance(ob1, ob2);
+//     let smallerObject = ob1.radius < ob2.radius ? ob1 : ob2;
+//     let biggerObject = ob1.radius > ob2.radius ? ob1 : ob2;
 
-    // When things go normally, this line does not execute.
-    // "Emergency" is when staticCollision has run, but the collision
-    // still hasn't been resolved. Which implies that one of the objects
-    // is likely being jammed against a corner, so we must now move the OTHER one instead.
-    // in other words: this line basically swaps the "little guy" role, because
-    // the actual little guy can't be moved away due to being blocked by the wall.
-    if (emergency) [smallerObject, biggerObject] = [biggerObject, smallerObject]
+//     // When things go normally, this line does not execute.
+//     // "Emergency" is when staticCollision has run, but the collision
+//     // still hasn't been resolved. Which implies that one of the objects
+//     // is likely being jammed against a corner, so we must now move the OTHER one instead.
+//     // in other words: this line basically swaps the "little guy" role, because
+//     // the actual little guy can't be moved away due to being blocked by the wall.
+//     if (emergency) [smallerObject, biggerObject] = [biggerObject, smallerObject]
     
-    let theta = Math.atan2((biggerObject.y - smallerObject.y), (biggerObject.x - smallerObject.x));
-    smallerObject.x -= overlap * Math.cos(theta);
-    smallerObject.y -= overlap * Math.sin(theta); 
+//     let theta = Math.atan2((biggerObject.y - smallerObject.y), (biggerObject.x - smallerObject.x));
+//     smallerObject.x -= overlap * Math.cos(theta);
+//     smallerObject.y -= overlap * Math.sin(theta); 
 
-    if (distance(ob1, ob2) < ob1.radius + ob2.radius) {
-        // we don't want to be stuck in an infinite emergency.
-        // so if we have already run one emergency round; just ignore the problem.
-        if (!emergency) staticCollision(ob1, ob2, true)
-    }
-}
+//     if (distance(ob1, ob2) < ob1.radius + ob2.radius) {
+//         // we don't want to be stuck in an infinite emergency.
+//         // so if we have already run one emergency round; just ignore the problem.
+//         if (!emergency) staticCollision(ob1, ob2, true)
+//     }
+// }
 
 function applyGravity() {
     for (let obj in objArray) {
@@ -183,7 +212,7 @@ function applyGravity() {
             ob.dy += .29;
         }
 
-        // apply basic drag
+        // Basic Drag
         ob.dx *= .99
         ob.dy *= .975
     }

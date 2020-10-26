@@ -1,15 +1,11 @@
-# ACI-MIS-Ball-Simulation
+# Ball Collusion Simulator
+A physics collusion simulator to demonstrate the Ball Collusions in 2D Space.
 
-## Snake Alike Ball
+## Repository Roadmap: 
+- Diagonal Movement ( 2 Ball) 
+- Random Movement ( 2 Ball )
+- Multi Ball (Forked from [ https://github.com/miskimit/miskimit.github.io ])
 
-13/10/2020 10:20PM - The Ball can move around freely | 4 Button Added | Inc Speed | Pause Ball | Repos Ball | Reset Ball
+## Simulation Run
 
-## Reflection of Ball
-
-13/10/2020 11:27PM - Reflection of a single Ball along the Edges is completed | Have to work on Increase of Speed
-
-15/10/2020 01:37PM - Reflection and Collusion complete
-## Collusion Count 
-
-15/10/2020 11:25AM - 2 Ball completed | Collusion Count done for redBall and blueBall
-
+Double click to run the **index.html** file into your browser and it should do the work.
